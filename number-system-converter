@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Number System Converter</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#0f172a; color:#e5e7eb; display:flex; align-items:center; justify-content:center; height:100vh; margin:0; }
+    .card { background:#111827; padding:24px; border-radius:16px; width:320px; box-shadow:0 10px 25px rgba(0,0,0,.4); }
+    h1 { font-size:20px; margin-bottom:16px; text-align:center; }
+    input, select, button { width:100%; padding:10px; margin:8px 0; border-radius:8px; border:none; }
+    input, select { background:#1f2937; color:#e5e7eb; }
+    button { background:#22c55e; color:#052e16; font-weight:bold; cursor:pointer; }
+    .output { margin-top:12px; background:#1f2937; padding:10px; border-radius:8px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>🔢 Number Converter</h1>
+    <input type="text" id="number" placeholder="Enter number" />
+    <select id="from">
+      <option value="10">Decimal</option>
+      <option value="2">Binary</option>
+      <option value="16">Hexadecimal</option>
+    </select>
+    <button onclick="convert()">Convert</button>
+
+    <div class="output" id="result">Result will appear here</div>
+  </div>
+
+  <script>
+    function convert() {
+      const num = document.getElementById('number').value.trim();
+      const base = parseInt(document.getElementById('from').value);
+      const resultDiv = document.getElementById('result');
+
+      if (!num) {
+        resultDiv.innerText = 'Please enter a number';
+        return;
+      }
+
+      let decimal;
+      try {
+        decimal = parseInt(num, base);
+        if (isNaN(decimal)) throw new Error();
+      } catch {
+        resultDiv.innerText = 'Invalid input for selected base';
+        return;
+      }
+
+      resultDiv.innerHTML = `
+        Decimal: ${decimal}\n
+        Binary: ${decimal.toString(2)}\n
+        Hex: ${decimal.toString(16).toUpperCase()}
+      `;
+    }
+  </script>
+</body>
+</html>
